@@ -4,10 +4,14 @@
         <title>Todo</title>
     </head>
     <body>
-        <form>
-            <input name="task" type="text" />
+        <form method="POST">
+            <input name="body" type="text" />
             <input name="add" type="submit" value="Add"/>
         </form>
-        <ul id="tasks"></ul>
+        <ul id="tasks">
+            {% for task in tasks %}
+            <li>{{task.body}}</li>
+            {% end %}
+        </ul>
     </body>
 </html>
