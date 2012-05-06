@@ -10,8 +10,23 @@
         </form>
         <ul id="tasks">
             {% for task in tasks %}
-            <li>{{task.body}}</li>
+            <li>
+                <form action="/tasks/{{task._id}}" method="POST" style="display: inline;">
+                    <input name="done" class="done" type="checkbox" {% if task.done %}checked="checked"{% end %}/>
+                    <input type="hidden" name="_method" value="PUT" />
+                </form>
+                <span>{{task.body}}</span>
+            </li>
             {% end %}
         </ul>
+
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script>
+            $(function() {
+                $('.done').click(function() {
+                    $(this).parent('form').submit();
+                });
+            });
+        </script>
     </body>
 </html>

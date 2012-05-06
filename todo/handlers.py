@@ -5,7 +5,7 @@ from tornado import web
 from todo import models
 
 
-class TasksHandler(web.RequestHandler):
+class IndexHandler(web.RequestHandler):
     def initialize(self, store):
         self.store = store
 
@@ -17,6 +17,21 @@ class TasksHandler(web.RequestHandler):
             body=self.get_argument('body'),
             done=False))
 
+        self.store.commit()
+
+        self.redirect('/')
+
+
+
+class TasksHandler(web.RequestHandler):
+    def initialize(self, store):
+        self.store = store
+
+    def post(self, task_id):
+        task = self.store.get(models.Task, task_id)
+        task.done = self.get_argument('done', False)
+
+        self.store.add(task)
         self.store.commit()
 
         self.redirect('/')

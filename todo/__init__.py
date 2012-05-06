@@ -25,5 +25,6 @@ def application(debug=False):
     store = Store(sqlite)
 
     return web.Application([
-        (r'/', handlers.TasksHandler, dict(store=store))
+        (r'/', handlers.IndexHandler, dict(store=store)),
+        (r'/tasks/(\d+)', handlers.TasksHandler, dict(store=store))
     ], **settings)
