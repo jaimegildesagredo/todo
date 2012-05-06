@@ -28,6 +28,11 @@ class TasksHandler(web.RequestHandler):
         self.store = store
 
     def post(self, task_id):
+        method = self.get_argument('_method', '')
+        if method.lower() == 'put':
+            self.put(task_id)
+
+    def put(self, task_id):
         task = self.store.get(models.Task, task_id)
         task.done = self.get_argument('done', False)
 
