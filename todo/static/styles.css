@@ -1,3 +1,7 @@
+#tasks {
+    list-style: none;
+}
+
 #tasks form {
     display: inline;
 }
