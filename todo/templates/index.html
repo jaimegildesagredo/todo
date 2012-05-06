@@ -16,7 +16,11 @@
                     <input name="done" class="done" type="checkbox" {% if task.done %}checked="checked"{% end %}/>
                     <input type="hidden" name="_method" value="PUT" />
                 </form>
-                <span>{{task.body}}</span>
+
+                <span {% if task.done %}class="done"{% end %}>
+                    {{task.body}}
+                </span>
+
                 <form action="/tasks/{{task._id}}" method="POST">
                     <input name="remove" type="submit" value="&times;" />
                     <input type="hidden" name="_method" value="DELETE" />

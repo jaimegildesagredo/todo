@@ -1,3 +1,7 @@
 #tasks form {
     display: inline;
 }
+
+.done {
+    text-decoration: line-through;
+}
