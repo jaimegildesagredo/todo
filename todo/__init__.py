@@ -27,5 +27,5 @@ def application(debug=False):
 
     return web.Application([
         (r'/', handlers.IndexHandler, dict(store=store)),
-        (r'/tasks/(\d+)', handlers.TasksHandler, dict(store=store))
+        (r'/tasks/(\d+)', handlers.TaskHandler, dict(store=store))
     ], **settings)

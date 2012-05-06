@@ -22,7 +22,7 @@ class IndexHandler(web.RequestHandler):
         self.redirect('/')
 
 
-class TasksHandler(web.RequestHandler):
+class TaskHandler(web.RequestHandler):
     def initialize(self, store):
         self.store = store
 
