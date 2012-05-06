@@ -1,0 +1,2 @@
+tornado
+-e git+git://github.com/jaimegildesagredo/cormoran.git@develop#egg=cormoran
