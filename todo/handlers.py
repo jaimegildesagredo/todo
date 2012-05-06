@@ -28,15 +28,26 @@ class TasksHandler(web.RequestHandler):
         self.store = store
 
     def post(self, task_id):
-        method = self.get_argument('_method', '')
-        if method.lower() == 'put':
+        method = self.get_argument('_method', '').lower()
+
+        if method == 'put':
             self.put(task_id)
+        elif method == 'delete':
+            self.delete(task_id)
 
     def put(self, task_id):
         task = self.store.get(models.Task, task_id)
         task.done = self.get_argument('done', False)
 
         self.store.add(task)
+        self.store.commit()
+
+        self.redirect('/')
+
+    def delete(self, task_id):
+        task = self.store.get(models.Task, task_id)
+
+        self.store.delete(task)
         self.store.commit()
 
         self.redirect('/')

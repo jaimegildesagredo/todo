@@ -16,6 +16,10 @@
                     <input type="hidden" name="_method" value="PUT" />
                 </form>
                 <span>{{task.body}}</span>
+                <form action="/tasks/{{task._id}}" method="POST" style="display: inline;">
+                    <input name="remove" type="submit" value="&times;" />
+                    <input type="hidden" name="_method" value="DELETE" />
+                </form>
             </li>
             {% end %}
         </ul>
