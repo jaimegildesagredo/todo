@@ -7,32 +7,39 @@
         <link href="{{static_url('styles.css')}}" rel="stylesheet" />
     </head>
     <body>
-        <div class="container">
-            <form method="POST">
-                <input name="body" type="text" />
-                <input name="add" type="submit" value="Add"/>
-            </form>
-            <ul id="tasks">
-                {% for task in tasks %}
-                <li>
-                    <form action="/tasks/{{task._id}}" method="POST">
-                        <input name="done" class="done" type="checkbox" {% if task.done %}checked="checked"{% end %}/>
-                        <input type="hidden" name="_method" value="PUT" />
+        <div id="wrapper" class="container">
+            <div class="row">
+                <div class="span4 offset3 hero-unit">
+                    <h1>Tasks</h1>
+
+                    <form method="POST">
+                        <input name="body" type="text" />
+                        <input name="add" type="submit" value="Add"/>
                     </form>
 
-                    <span {% if task.done %}class="done"{% end %}>
-                        {{task.body}}
-                    </span>
+                    <ul id="tasks">
+                        {% for task in tasks %}
+                        <li>
+                            <form action="/tasks/{{task._id}}" method="POST">
+                                <input name="done" class="done" type="checkbox" {% if task.done %}checked="checked"{% end %}/>
+                                <input type="hidden" name="_method" value="PUT" />
+                            </form>
 
-                    <form action="/tasks/{{task._id}}" method="POST">
-                        <input name="remove" type="submit" value="&times;" />
-                        <input type="hidden" name="_method" value="DELETE" />
-                    </form>
-                </li>
-                {% end %}
-            </ul>
+                            <span {% if task.done %}class="done"{% end %}>
+                                {{task.body}}
+                            </span>
 
-            <p>#{{len(list(x for x in tasks if x.done))}} tasks done.</p>
+                            <form action="/tasks/{{task._id}}" method="POST">
+                                <input name="remove" type="submit" value="&times;" />
+                                <input type="hidden" name="_method" value="DELETE" />
+                            </form>
+                        </li>
+                        {% end %}
+                    </ul>
+
+                    <p>#{{len(list(x for x in tasks if x.done))}} tasks done.</p>
+                </div>
+            </div>
         </div>
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

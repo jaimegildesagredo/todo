@@ -1,3 +1,7 @@
+#wrapper {
+    margin-top: 75px;
+}
+
 #tasks {
     list-style: none;
 }
