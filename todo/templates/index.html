@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Todo</title>
+        <link href="{{static_url('styles.css')}}" rel="stylesheet" />
     </head>
     <body>
         <form method="POST">
@@ -11,12 +12,12 @@
         <ul id="tasks">
             {% for task in tasks %}
             <li>
-                <form action="/tasks/{{task._id}}" method="POST" style="display: inline;">
+                <form action="/tasks/{{task._id}}" method="POST">
                     <input name="done" class="done" type="checkbox" {% if task.done %}checked="checked"{% end %}/>
                     <input type="hidden" name="_method" value="PUT" />
                 </form>
                 <span>{{task.body}}</span>
-                <form action="/tasks/{{task._id}}" method="POST" style="display: inline;">
+                <form action="/tasks/{{task._id}}" method="POST">
                     <input name="remove" type="submit" value="&times;" />
                     <input type="hidden" name="_method" value="DELETE" />
                 </form>
