@@ -3,6 +3,8 @@
 }
 
 #tasks {
+    margin-left: 0;
+    margin-bottom: 20px;
     list-style: none;
 }
 
@@ -10,8 +12,25 @@
     display: inline;
 }
 
+#tasks li {
+    margin-bottom: 2.5px;
+    padding: 2.5px;
+    min-height: 30px;
+    background: #fafafa;
+    border-bottom: 1px #aaa solid;
+}
+
+#tasks li:hover {
+    background: #fefefe;
+}
+
 .done {
     text-decoration: line-through;
+}
+
+.remove {
+    margin: 0;
+    float: right;
 }
 
 .large {
