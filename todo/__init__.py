@@ -7,7 +7,7 @@ from cormoran import *
 
 from todo import handlers
 
-def create_database(sqlite):
+def create_table(sqlite):
     if not sqlite._connection.execute('PRAGMA table_info("Task")').fetchall():
         sqlite._connection.execute('CREATE TABLE Task (_id INTEGER PRIMARY KEY, body TEXT, done BOOL)')
 
@@ -21,7 +21,7 @@ def application(debug=False):
     )
 
     sqlite = connect('sqlite:///tasks.sqlite')
-    create_database(sqlite)
+    create_table(sqlite)
 
     store = Store(sqlite)
 
