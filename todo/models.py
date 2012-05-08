@@ -5,4 +5,4 @@ from cormoran import *
 
 class Task(Persistent):
     body = StringField()
-    done = BooleanField()
+    done = BooleanField(default=False)
