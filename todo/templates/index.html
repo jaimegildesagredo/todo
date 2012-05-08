@@ -45,6 +45,20 @@
         <script>
             $(function() {
                 $('input:first').focus();
+
+                $('form').submit(function(e) {
+                    var form = $(this);
+
+                    e.preventDefault();
+
+                    $.post(form.attr('action'),
+                        form.serialize(),
+                        function() {
+                            window.location.reload();
+                        }
+                    );
+                });
+
                 $('.done').click(function() {
                     $(this).parent('form').submit();
                 });
