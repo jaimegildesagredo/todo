@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import httplib
+
 from tornado import web
 
 from todo import models
@@ -19,7 +21,7 @@ class IndexHandler(web.RequestHandler):
 
         self.store.commit()
 
-        self.redirect('/')
+        self.set_status(httplib.CREATED)
 
 
 class TaskHandler(web.RequestHandler):
@@ -33,6 +35,8 @@ class TaskHandler(web.RequestHandler):
             self.put(task_id)
         elif method == 'delete':
             self.delete(task_id)
+        else:
+            raise web.HTTPError(httplib.METHOD_NOT_ALLOWED)
 
     def put(self, task_id):
         task = self.store.get(models.Task, task_id)
@@ -41,12 +45,8 @@ class TaskHandler(web.RequestHandler):
         self.store.add(task)
         self.store.commit()
 
-        self.redirect('/')
-
     def delete(self, task_id):
         task = self.store.get(models.Task, task_id)
 
         self.store.delete(task)
         self.store.commit()
-
-        self.redirect('/')
