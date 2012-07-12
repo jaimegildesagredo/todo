@@ -3,14 +3,17 @@
 import httplib
 
 from tornado import web
+from cormoran import Store
 
 from todo import models
 
 
-class IndexHandler(web.RequestHandler):
-    def initialize(self, store):
-        self.store = store
+class ApplicationHandler(web.RequestHandler):
+    def initialize(self, connection):
+        self.store = Store(connection)
 
+
+class IndexHandler(ApplicationHandler):
     def get(self):
         self.render('index.html', tasks=self.store.find(models.Task))
 
@@ -22,10 +25,7 @@ class IndexHandler(web.RequestHandler):
         self.set_status(httplib.CREATED)
 
 
-class TaskHandler(web.RequestHandler):
-    def initialize(self, store):
-        self.store = store
-
+class TaskHandler(ApplicationHandler):
     def post(self, task_id):
         method = self.get_argument('_method', '').lower()
 

@@ -3,13 +3,13 @@
 import os.path
 
 from tornado import web
-from cormoran import *
+from cormoran import connect
 
 from todo import handlers
 
-def create_table(sqlite):
-    if not sqlite._connection.execute('PRAGMA table_info("Task")').fetchall():
-        sqlite._connection.execute('CREATE TABLE Task (_id INTEGER PRIMARY KEY, body TEXT, done BOOL)')
+def create_sqlite_table(conn):
+    if not conn._connection.execute('PRAGMA table_info("Task")').fetchall():
+        conn._connection.execute('CREATE TABLE Task (_id INTEGER PRIMARY KEY, body TEXT, done BOOL)')
 
 
 def application(debug=False):
@@ -20,12 +20,12 @@ def application(debug=False):
         autoreload=debug
     )
 
-    sqlite = connect('sqlite:///tasks.sqlite')
-    create_table(sqlite)
+    connection = connect('sqlite:///tasks.sqlite')
+    create_sqlite_table(connection)
 
-    store = Store(sqlite)
+    handler_init = {'connection': connection}
 
     return web.Application([
-        (r'/', handlers.IndexHandler, dict(store=store)),
-        (r'/tasks/(\d+)', handlers.TaskHandler, dict(store=store))
+        (r'/', handlers.IndexHandler, handler_init),
+        (r'/tasks/(\d+)', handlers.TaskHandler, handler_init)
     ], **settings)
